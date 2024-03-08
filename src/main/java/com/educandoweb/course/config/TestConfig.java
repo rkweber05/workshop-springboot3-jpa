@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.educandoweb.course.entites.Category;
 import com.educandoweb.course.entites.Order;
 import com.educandoweb.course.entites.User;
 import com.educandoweb.course.entites.enums.OrderStatus;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepositoty;
 
@@ -23,9 +25,16 @@ public class TestConfig implements CommandLineRunner{ // classe para instanciar 
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public void run(String... args) throws Exception { //executrado quando a aplicação for iniciada
+		Category cat1 = new Category(null, "Electronics");
+		Category cat2 = new Category(null, "Books");
+		Category cat3 = new Category(null, "Computers"); 		
+		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 		
@@ -35,7 +44,7 @@ public class TestConfig implements CommandLineRunner{ // classe para instanciar 
 		
 		userRepositoty.saveAll(Arrays.asList(u1, u2)); // salvar no banco e instaciar 
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
-
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 	}
 	
 	
