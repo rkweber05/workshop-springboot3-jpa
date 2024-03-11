@@ -7,10 +7,13 @@ import java.util.Set;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -26,7 +29,8 @@ public class Category implements Serializable{
 	private Long id;
 	private String name;
 	
-	@Transient // impede que o JPA tente interpretar ela
+	@JsonIgnore // para não dar loop, produto cartesiano
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>(); //set é um conjunto
 	
 	public Category() {}

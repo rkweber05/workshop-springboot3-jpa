@@ -9,8 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -25,8 +27,12 @@ public class Product implements Serializable {
 	private Double price;
 	private String imgUrl;
 	
-	@Transient
-	private Set<Category> categories = new HashSet<>(); // set define que não pode ter mesma categoria/ um produto não pode ter mesma categoria
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", //nome da tabela no banco
+			   joinColumns = @JoinColumn(name = "product_id"), // define a pk dessa entidade
+			   inverseJoinColumns = @JoinColumn(name = "category_id")) //definir qual é a chave estrangeira da outra entidade
+	
+	private Set<Category> categories = new HashSet<>(); // set define que não pode ter mesma categoria/ um produto não pode ter mesma categoria é uma coleção
 	
 	public Product() {}
 
