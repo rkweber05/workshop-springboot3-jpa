@@ -28,4 +28,8 @@ public class UserService {
 	public User insert(User obj) {
 		return repositoty.save(obj); // implementação para salvar no banco de dados um nov obj do tipo user
 	}
+	
+	public void delete(Long id) {
+		repositoty.deleteById(id);
+	}
 }
